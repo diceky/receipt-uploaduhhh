@@ -1,0 +1,60 @@
+.welcome{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title{
+    font-size: 64px;
+}
+
+.button{
+    padding: 20px 40px;
+    border-radius: 20px;
+    background-color: #124559;
+    color: white;
+    font-size: 24px;
+    border:none;
+}
+
+.button:hover{
+    background-color: #01161e;
+}
+
+.filestackResponse{
+    margin-bottom: 40px;
+}
+
+.receiptLink{
+    background-color: #aec3b0;
+    padding: 10px;
+    font-weight: 200;
+}
+
+a{
+    text-decoration: none;
+    background-color: #aec3b0;
+    color: #01161e;
+}
+
+.content{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+}
+
+.response{
+    padding: 20px;
+    background-color: #598392;
+    text-align: left;
+    margin-top: 100px;
+    border-radius: 8px;
+    color: white;
+    width: 60%;
+}
