@@ -39,6 +39,13 @@ const App = () => {
     setStart(true);
   }
 
+  const handleReset = () => {
+    setResult('');
+    setResponse('');
+    setStart(false);
+    setFileLink('');
+  }
+
   // const handleMessageChange = (event) => {
   //   setPrompt(event.target.value);
   // }
@@ -117,15 +124,18 @@ const App = () => {
           )}
           { response && !loading && (
             <div className={Styles.response}>
-              <h2>Response:</h2>
+              <h2>AI scan result 🤖</h2>
               <p>{ response }</p>
             </div>
           ) }
           { result && !loading && (
-            <div className={Styles.response}>
-              <h2>New row added:</h2>
-              <p>{ result }</p>
-            </div>
+            <>
+              <div className={Styles.response}>
+                <h2>New row added ✅</h2>
+                <p>{ result }</p>
+              </div>
+              <p className={Styles.buttonReset} onClick={handleReset}>Do that again</p>
+            </>
           ) }
         </div>
       )}

@@ -20,6 +20,12 @@
     border:none;
 }
 
+.buttonReset{
+    font-size: 14px;
+    text-decoration: underline;
+    margin-top: 100px;
+}
+
 .button:hover{
     background-color: #01161e;
 }
