@@ -4,7 +4,7 @@ const Sheety = async (data, fileLink) => {
 
     let response = '';    
     const url = process.env['REACT_APP_SHEETY_ENDOINT'];
-    console.log(url);
+    //console.log(url);
     const body = {
         expenseZapier: {
             ...rowData,
@@ -12,7 +12,7 @@ const Sheety = async (data, fileLink) => {
             "reimbursed?": false,
         }
     }
-    console.log(body);
+    //console.log(body);
     
     await fetch(url, {
         method: 'POST',
@@ -21,8 +21,8 @@ const Sheety = async (data, fileLink) => {
     })
     .then((res) => res.json())
     .then((json) => {
-        console.log(json);
-        console.log(JSON.stringify(json, undefined, 2));
+        //console.log(json);
+        //console.log(JSON.stringify(json, undefined, 2));
         response = json;
     })
     .catch(() => alert("error"));

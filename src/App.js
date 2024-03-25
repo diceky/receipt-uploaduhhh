@@ -16,6 +16,11 @@ const App = () => {
   const [start, setStart] = useState(false);
   const [result, setResult] = useState('');
 
+  const prompts = [
+    'Tell me about this receipt.',
+    'From there extract the date, item name, price and tax percentage, and respond in JSON. It should have the following fields: date, item, price and taxRate. date is written as 2024/3/22, item is a string, price is an integer and taxRate is in percentage. Each property should have only one value. Do not format the response in markdown.'
+  ];
+
   useEffect( () => {
     const newConversation = [
       {
@@ -24,15 +29,16 @@ const App = () => {
       },
       {
         'role': 'user',
-        'content': prompt,
+        'content': prompts[conversation.length / 2],
       }
     ];
  
     // Save past conversations
     setConversation( [ ...conversation, ...newConversation ] );
+    //console.log(conversation);
  
     // Clear form
-    setPrompt( '' );
+    //setPrompt( '' );
   }, [ response ] );
 
   const handleStart = () => {
@@ -65,21 +71,31 @@ const App = () => {
     setLoading( true );
  
     try {
-      const responseText = await Chatgpt(conversation, prompt, fileLink);
-      setResponse(responseText.trim());
-      const addRow = await Sheety(responseText, fileLink);
-      await console.log(addRow);
-      await console.log(JSON.stringify(addRow, undefined, 2));
+      const responseText1 = await Chatgpt(
+        conversation,
+        prompts[0],
+        fileLink
+      );
+      setResponse(responseText1.trim());
+      const responseText2 = await Chatgpt(
+        conversation,
+        prompts[1],
+        fileLink
+      );
+      setResponse(responseText2.trim());
+      const addRow = await Sheety(responseText2, fileLink);
+      //await console.log(addRow);
+      //await console.log(JSON.stringify(addRow, undefined, 2));
       await setResult(JSON.stringify(addRow, undefined, 2));
  
     } catch ( error ) {
-      console.error( error );
- 
+      alert( error );
+
     } finally {
       setLoading( false );
       prevPromptRef.current = prompt;
     }
-  }, [ loading, prompt, conversation ] );
+  }, [ loading, prompt, conversation , fileLink] );
 
   return (
     <>
@@ -95,7 +111,7 @@ const App = () => {
             <PickerOverlay
             apikey={process.env['REACT_APP_FILESTACK_API_KEY']}
             onUploadDone={(res) => {
-              console.log(res);
+              //console.log(res);
               setFileLink(res.filesUploaded[0].url);
             }}
           />
@@ -122,15 +138,17 @@ const App = () => {
               ariaLabel="three-dots-loading"
             />
           )}
-          { response && !loading && (
-            <div className={Styles.response}>
-              <h2>AI scan result 🤖</h2>
-              <p>{ response }</p>
+          { response && !loading && conversation.map((value, index) => (
+            value.content !== undefined && value.content.length > 0  && (
+              <div className={Styles.response} key={index}>
+              <h2>{index%2===0 ? "ChatGPT responded 🤖" : "You asked 🧍‍♀️" }</h2>
+              <p>{ value.content }</p>
             </div>
-          ) }
+            )
+          ))}
           { result && !loading && (
             <>
-              <div className={Styles.response}>
+              <div className={Styles.final}>
                 <h2>New row added ✅</h2>
                 <p>{ result }</p>
               </div>

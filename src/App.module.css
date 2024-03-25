@@ -38,6 +38,7 @@
     background-color: #aec3b0;
     padding: 10px;
     font-weight: 200;
+    color: white;
 }
 
 a{
@@ -48,7 +49,6 @@ a{
 
 .content{
     width: 100vw;
-    height: 100vh;
     display: flex;
     flex-direction:column;
     align-items: center;
@@ -63,4 +63,9 @@ a{
     border-radius: 8px;
     color: white;
     width: 60%;
+}
+
+.final{
+    composes: response;
+    background-color: #01161e;
 }

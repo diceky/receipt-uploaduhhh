@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import OpenAI from 'openai';
  
 const Chatgpt = async (conversation, prompt, fileLink ) => {
@@ -14,10 +13,11 @@ const Chatgpt = async (conversation, prompt, fileLink ) => {
     const completion = await openai.chat.completions.create({
       model: 'gpt-4-vision-preview',
       messages: [
+        ...conversation,
         {
           role: "user",
           content: [
-            { type: "text", text: 'Extract the date, item name, price and tax percentage from this receipt, and respond in JSON. It should have the fields date, item, price and taxRate, where date is written as 2024/3/22, item is a string, price is an integer and taxRate is in percentage. Each property should have only one value. Respond with no formatting.' },
+            { type: "text", text: prompt },
             {
               type: "image_url",
               image_url:fileLink,
@@ -54,7 +54,7 @@ const Chatgpt = async (conversation, prompt, fileLink ) => {
       // tool_choice: "auto",
     });
     
-    console.log(completion.choices[0]);
+    //console.log(completion.choices[0]);
 
     // const toolCall = completion.choices[0].message.tool_calls[0];
     // const json = JSON.parse(toolCall.function.arguments);
