@@ -1,6 +1,6 @@
 # Receipt Uploaduhhh
 
-ChatGPT based receipt uploader.
+ChatGPT based receipt uploader in React.
 
 ### How It Works
 - Upload receipt via Filestack
